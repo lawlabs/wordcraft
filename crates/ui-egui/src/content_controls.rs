@@ -72,6 +72,13 @@ pub fn paint(app: &mut WordApp, painter: &egui::Painter, t: &Tokens, layout: &Do
     };
     // Check boxes are clickable wherever they are, framed or not.
     let all = if app.session.view.design_mode { shown.clone() } else { app.session.doc.control_ranges(story) };
+    // Linked penalty values stay visible as a tint, so the calculation reads as one marked block.
+    let wash = t.accent.gamma_multiply(0.16);
+    for r in all.iter().filter(|r| r.control.tag.starts_with(wordcraft_engine::cmd::penalty::TAG_PREFIX)).take(MAX_FRAMED) {
+        for f in frames(app, layout, rects, scale, r) {
+            painter.rect_filled(f, 2.0, wash);
+        }
+    }
     for r in all.iter().filter(|r| matches!(r.control.kind, ControlKind::CheckBox { .. })).take(MAX_FRAMED) {
         if let Some(f) = frames(app, layout, rects, scale, r).first() {
             app.controls.checks.push((*f, r.content_start()));

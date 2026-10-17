@@ -31,6 +31,7 @@ pub mod outline;
 pub mod page;
 pub mod para;
 pub mod paste;
+pub mod penalty;
 pub mod phonetic;
 pub mod protect;
 pub mod references;
@@ -72,6 +73,7 @@ pub fn registry() -> Registry {
     v.extend(view::specs());
     v.extend(outline::specs());
     v.extend(insert::specs());
+    v.extend(penalty::specs());
     v.extend(equation::specs());
     v.extend(page::specs());
     v.extend(table::specs());

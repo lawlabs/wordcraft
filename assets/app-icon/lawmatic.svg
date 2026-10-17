@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- LawMatic Word app icon. Original artwork for this fork. MIT OR Apache-2.0. -->
+  <rect width="512" height="512" rx="112" fill="#1C3D36"/>
+  <path d="M148 96 H300 L364 160 V416 H148 Z" fill="#F4EFE6"/>
+  <path d="M300 96 V160 H364" fill="#E4D9C4"/>
+  <g stroke="#1C3D36" stroke-width="14" stroke-linecap="round">
+    <line x1="184" y1="210" x2="328" y2="210"/>
+    <line x1="184" y1="248" x2="328" y2="248"/>
+    <line x1="184" y1="286" x2="268" y2="286"/>
+  </g>
+  <g fill="none" stroke="#C4A05A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="256" y1="318" x2="256" y2="392"/>
+    <line x1="196" y1="340" x2="316" y2="340"/>
+    <path d="M196 340 L176 378 H216 Z"/>
+    <path d="M316 340 L296 378 H336 Z"/>
+  </g>
+</svg>

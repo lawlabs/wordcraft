@@ -119,6 +119,9 @@ pub fn contextual_tabs(s: &wordcraft_engine::Session) -> Vec<&'static str> {
     if has_chart_selected(s) {
         tabs.push("Chart Design");
     }
+    if wordcraft_engine::cmd::penalty::block_at(s).is_some() {
+        tabs.push("Calculation");
+    }
     // Editing an equation.
     if s.math.is_some() {
         tabs.push("Equation");
@@ -178,6 +181,18 @@ pub fn show(app: &mut WordApp, ui: &mut Ui) {
         }
     } else if let Some(prev) = app.equation_prev_tab.take()
         && app.ui.tab == "Equation"
+    {
+        app.ui.tab = prev;
+    }
+    // A penalty calculation brings up its tab; leaving the block goes back.
+    let in_penalty = wordcraft_engine::cmd::penalty::block_at(&app.session).is_some();
+    if in_penalty {
+        if app.penalty_prev_tab.is_none() {
+            app.penalty_prev_tab = Some(app.ui.tab.clone());
+            app.ui.tab = "Calculation".into();
+        }
+    } else if let Some(prev) = app.penalty_prev_tab.take()
+        && app.ui.tab == "Calculation"
     {
         app.ui.tab = prev;
     }
@@ -378,6 +393,7 @@ pub fn show(app: &mut WordApp, ui: &mut Ui) {
                         "SmartArt Design" => smart_art_design(app, ui),
                         "Outlining" => outlining(app, ui),
                         "Chart Design" => chart_design(app, ui),
+                        "Calculation" => crate::penalty_pane::ribbon(app, ui),
                         _ => home(app, ui),
                     }
                     if let Some(e) = entry {
@@ -1026,6 +1042,9 @@ fn insert(app: &mut WordApp, ui: &mut Ui) {
                 mi(ui, app, "Calendar", "table.quick", json!({"kind": "calendar"}));
             });
         });
+    });
+    group(ui, "Calculations", None, app, |ui, app| {
+        big(ui, app, "formula", "Penalty\ncalculation", "penalty.insert", json!({}), false);
     });
     group(ui, "Illustrations", None, app, |ui, app| {
         big(ui, app, "picture", "Pictures", "insert.picture", json!({}), false);
@@ -2801,6 +2820,17 @@ mod tests {
         assert_eq!(language_name(Some("tr-TR")), "Turkish");
         assert_eq!(language_name(Some("tr")), "Turkish");
         assert_eq!(language_name(Some("TR-TR")), "Turkish");
+    }
+
+    #[test]
+    fn calculation_tab_appears_inside_a_penalty_block() {
+        let mut s = Session::new(wordcraft_doc::Document::new());
+        assert!(!contextual_tabs(&s).contains(&"Calculation"));
+        s.run("penalty.insert", &json!({})).unwrap();
+        assert!(contextual_tabs(&s).contains(&"Calculation"));
+        let outside = s.doc.para_paths(wordcraft_doc::StoryRef::Body).into_iter().filter(|p| p.0.len() == 1).next_back().unwrap();
+        s.sel = wordcraft_engine::Selection::caret(wordcraft_doc::Pos::new(wordcraft_doc::StoryRef::Body, outside, 0));
+        assert!(!contextual_tabs(&s).contains(&"Calculation"));
     }
 
     #[test]

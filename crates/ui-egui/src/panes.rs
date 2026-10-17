@@ -1,6 +1,6 @@
 //! Side panes: Navigation (headings, pages, search results), Clipboard, Styles, Style Inspector,
 //! Accessibility and Alt Text (see `a11y_pane`), Restrict Editing ([`crate::dialogs_review`]), Comments,
-//! and the SmartArt Text Pane.
+//! the SmartArt Text Pane, and a penalty-calculation pane (see `penalty_pane`).
 
 use egui::{Stroke, Ui, vec2};
 use serde_json::{Value, json};
@@ -87,6 +87,7 @@ pub fn show(app: &mut WordApp, ui: &mut Ui) {
             .frame(egui::Frame::NONE.fill(t.panel).inner_margin(10).stroke(Stroke::new(1.0, t.border)))
             .show(ui, |ui| comments(app, ui));
     }
+    crate::penalty_pane::show(app, ui);
 }
 
 pub(crate) fn header(ui: &mut Ui, title: &str) -> bool {

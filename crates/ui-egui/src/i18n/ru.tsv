@@ -2630,3 +2630,22 @@ preview	Title	Пример
 # Reading Mode column widths (#1040)
 	Narrow	Узкая
 	Medium	Средняя
+
+# Penalty calculation pane
+	Calculations	Расчёты
+	Calculation	Расчёт
+	Calculation values	Значения расчёта
+	Penalty\ncalculation	Расчёт\nпеней
+	Penalty calculation	Расчёт пеней
+	Calculation title	Заголовок расчёта
+	Debt amount	Сумма долга
+	Penalty rate	Ставка пени
+	Period start	Дата начала
+	Period end	Дата окончания
+	Days overdue	Дней просрочки
+	Penalty amount	Сумма пеней
+	Changing a value writes it into every marked place in the text and the table. Nothing is calculated yet.	Изменение значения записывается во все отмеченные места в тексте и в таблице. Формула пока не считается.
+	Entered by hand for now	Пока вводится вручную
+	Inserted a penalty calculation. The pane on the right edits its values.	Вставлен расчёт пеней. Значения меняются на панели справа.
+	Set Penalty Value	Записать значение расчёта
+	Penalty Calculation at Caret	Расчёт пеней у курсора
