@@ -1,0 +1,33 @@
+# Русский (ru) interface catalog for LawMatic strings in WordCraft.
+# Columns, separated by a TAB: context <TAB> English source text <TAB> translation
+#   context  usually empty. `@plural`, `@id` and `@msg` mean something to the apps; any other
+#            word is a label that tells apart two meanings of the same English.
+#   escapes  \n  \t  \\  inside a column. `{name}` placeholders must appear in both columns (in any
+#            order), and a trailing "…" in one needs one in the other.
+#   @plural  English `one|other`; the translation lists this language's plural forms, `|`-separated.
+#   Lines starting with # and blank lines are ignored. A missing entry shows in English.
+#
+# Clean room: every entry was written from the plain meaning of the English text in ordinary
+# computing vocabulary. No other product's localisation, string table or translated UI was
+# consulted or copied; add entries the same way.
+#
+# These rows belong to this fork. Upstream WordCraft reads shared catalogs from craft-i18n and
+# does not carry them. `build.rs` appends this file to that locale's WordCraft catalog.
+
+	Calculations	Расчёты
+	Calculation	Расчёт
+	Calculation values	Значения расчёта
+	Penalty\ncalculation	Расчёт\nпеней
+	Penalty calculation	Расчёт пеней
+	Calculation title	Заголовок расчёта
+	Debt amount	Сумма долга
+	Penalty rate	Ставка пени
+	Period start	Дата начала
+	Period end	Дата окончания
+	Days overdue	Дней просрочки
+	Penalty amount	Сумма пеней
+	Changing a value writes it into every marked place in the text and the table. Nothing is calculated yet.	Изменение значения записывается во все отмеченные места в тексте и в таблице. Формула пока не считается.
+	Entered by hand for now	Пока вводится вручную
+	Inserted a penalty calculation. The pane on the right edits its values.	Вставлен расчёт пеней. Значения меняются на панели справа.
+	Set Penalty Value	Записать значение расчёта
+	Penalty Calculation at Caret	Расчёт пеней у курсора

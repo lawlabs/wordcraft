@@ -84,3 +84,21 @@ fn edit_field(app: &mut WordApp, ui: &mut egui::Ui, place: &str, group: &str, ke
     }
     resp
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::i18n::{self, Lang};
+
+    #[test]
+    fn russian_catalog_includes_penalty_labels() {
+        if !i18n::catalogs_embedded() {
+            return;
+        }
+        let Some(ru) = Lang::from_code("ru") else {
+            return;
+        };
+        assert_eq!(i18n::tr(ru, "Calculation"), "Расчёт");
+        assert_eq!(i18n::tr(ru, "Penalty calculation"), "Расчёт пеней");
+        assert_eq!(i18n::tr(ru, "Penalty\ncalculation"), "Расчёт\nпеней");
+    }
+}

@@ -1,2 +1,8 @@
 [alias]
 xtask = "run --package xtask --"
+
+# Interface catalogs. Upstream leaves this unset and the UI is English; this fork keeps the
+# sibling checkout from craft-i18n's integration notes so a local build stays translated.
+# Missing directory: the build warns and the interface is English.
+[env]
+CRAFT_I18N_DIR = { value = "../craft-i18n", relative = true }
