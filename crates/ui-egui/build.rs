@@ -77,10 +77,8 @@ fn craft_i18n() -> String {
     o
 }
 
-/// This fork's rows for one locale (`i18n-extra/<code>.tsv`). Upstream keeps translations in
-/// craft-i18n and a feature adds English only. LawMatic's strings are not part of that shared
-/// catalog, so they are appended here and looked up the same way. An absolute path: `include_str!`
-/// in the generated file is resolved from `OUT_DIR`.
+/// A fork catalog `i18n-extra/<locale>.tsv`, appended to that locale's WordCraft catalog.
+/// Upstream keeps translations in craft-i18n; this file is only the strings this fork adds.
 fn extra_catalog(code: &str) -> Option<std::path::PathBuf> {
     let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("i18n-extra").join(format!("{code}.tsv"));
     if !path.is_file() {
