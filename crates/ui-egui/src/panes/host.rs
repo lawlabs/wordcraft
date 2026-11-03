@@ -74,6 +74,8 @@ pub(crate) fn apply(app: &mut WordApp, request: PaneRequest<Pane>) {
     match request {
         PaneRequest::Close(pane) => close(app, pane),
         PaneRequest::Place(Pane::Styles, place) => {
+            // Physical sides: the host is not RTL-flipped, and Dock Left / Dock Right mean the
+            // window's left and right (same as `ui.paneDock` / `view.stylesPaneDock`).
             let dock = match place {
                 Place::Docked(Edge::Start) => "left",
                 Place::Docked(Edge::End) => "right",
@@ -138,6 +140,7 @@ pub(crate) fn dock_command(app: &mut WordApp, p: &Value) -> Result<Value, String
     if let Some(dock) = dock {
         app.ui.pane_places.entry(key.into()).or_default().dock = Some(dock);
     }
+    // Report the physical side the pane occupies (matches what was stored / requested).
     let name = match pane_state(app, pane).place {
         Place::Docked(Edge::Start) => "left",
         Place::Floating => "float",
@@ -147,17 +150,16 @@ pub(crate) fn dock_command(app: &mut WordApp, p: &Value) -> Result<Value, String
 }
 
 fn close(app: &mut WordApp, pane: Pane) {
-    match pane {
-        Pane::RestrictEditing => app.restrict.open = false,
-        Pane::Penalty => {
+    match pane.close_command() {
+        Some(id) => {
+            let _ = app.run(id, json!({"value": false}));
+        }
+        None if pane == Pane::Proofing => app.spelling_review = None,
+        None if pane == Pane::Penalty => {
             if let Some(block) = wordcraft_engine::cmd::penalty::block_at(&app.session) {
                 app.penalty_hidden = Some(block.group);
             }
         }
-        _ => {
-            if let Some(id) = pane.close_command() {
-                let _ = app.run(id, json!({"value": false}));
-            }
-        }
+        None => app.restrict.open = false,
     }
 }
