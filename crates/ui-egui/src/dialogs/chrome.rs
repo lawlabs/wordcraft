@@ -188,6 +188,7 @@ pub fn show(app: &mut WordApp, ctx: &egui::Context) {
         Dialog::Icons { .. } => "Icons",
         Dialog::PasteSpecial { .. } => "Paste Special",
         Dialog::About { .. } => "About LawMatic Word",
+        Dialog::FontDownload { .. } => "Get the Missing Fonts",
         Dialog::SaveChanges { .. } => "LawMatic Word",
         Dialog::DiscardRecovery { .. } => "Discard recovery copy",
         Dialog::RecipientList { .. } => "Recipient List",
