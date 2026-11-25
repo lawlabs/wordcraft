@@ -43,7 +43,7 @@ pub(crate) fn show(ui: &mut Ui, _cx: &mut BodyCx<'_>, app: &mut WordApp) {
             .action(tl!("Rename Document").to_string())
     } else {
         // No document open (#1129): the app's name alone.
-        Title::new("LawMatic Word")
+        Title::new(crate::os_window::name_for(crate::os_window::identity()))
     };
     // The controls at the end give way in a narrow window (#5886): the step that fits the room the leading controls
     // left in the last pass.
